@@ -1,12 +1,67 @@
 var app = angular.module("myApp", ["ngRoute"]);
 
-app.config(function ($routeProvider) {
-    $routeProvider
-    .when('/', {
+app.config(function ($routeProvider) { 
+    $routeProvider 
+    .when('/', { 
       templateUrl: 'views/login.php',
-      controller: "loginController"
+      controller: "loginController" 
     })
-      .when('/dashboard', {
+      .when('/dashboard', { 
+        resolve: {
+          check: function($location, transferService) {
+            if(!transferService.isloggedin()) {
+              $location.path('/');
+            }
+          },
+        },
+        templateUrl: 'views/dashboard.php',
+        controller: "DashboardController" 
+      })
+      .when('/product', { 
+        resolve: {
+          check: function($location, transferService) {
+            if(!transferService.isloggedin()) {
+              $location.path('/');
+            }
+          },
+        },
+        templateUrl: 'views/product.php',
+        controller: "ProductController"
+      })
+      .when('/searchProduct', { 
+        resolve: {
+          check: function($location, transferService) {
+            if(!transferService.isloggedin()) {
+              $location.path('/');
+            }
+          },
+        },
+        templateUrl: 'views/searchProduct.php',
+        controller: "searchProductController"
+      })
+      .when('/searchCompany', { 
+        resolve: {
+          check: function($location, transferService) {
+            if(!transferService.isloggedin()) {
+              $location.path('/');
+            }
+          },
+        },
+        templateUrl: 'views/searchCompany.php',
+        controller: "searchCompanyController"
+      })
+      .when('/profile', { 
+        resolve: {
+          check: function($location, transferService) {
+            if(!transferService.isloggedin()) {
+              $location.path('/');
+            }
+          },
+        },
+        templateUrl: 'views/profile.php',
+        controller: "ProfileController"
+      })
+      .when('/certificate', { 
         // resolve: {
         //   check: function($location, transferService) {
         //     if(!transferService.isloggedin()) {
@@ -14,29 +69,13 @@ app.config(function ($routeProvider) {
         //     }
         //   },
         // },
-        templateUrl: 'views/dashboard.php',
-        controller: "DashboardController"
+        templateUrl: 'views/certificate.php',
+        controller: "certificateController"
       })
-      .when('/product', {
-        templateUrl: 'views/product.php',
-        controller: "ProductController"
-      })
-      .when('/searchProduct', {
-        templateUrl: 'views/searchProduct.php',
-        controller: "searchProductController"
-      })
-      .when('/searchCompany', {
-        templateUrl: 'views/searchCompany.php',
-        controller: "searchCompanyController"
-      })
-      .when('/profile', {
-        templateUrl: 'views/profile.php',
-        controller: "ProfileController"
-      })
-      .otherwise({
-          redirectTo: "/dashboard"
-      });
-
+      // .otherwise({
+      //     redirectTo: "/"
+      // });
+ 
   });
 
   // app.run( function($rootScope, $location) {
@@ -49,5 +88,5 @@ app.config(function ($routeProvider) {
   //         // not going to #login, we should redirect now
   //         $location.path( "/login" );
   //       }
-  //     }
+  //     }         
   //   });

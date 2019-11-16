@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
       <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-timgo-fit=no">
 
       <title>Admin UI</title>
 
@@ -13,77 +13,45 @@
     </head>
 
   <body> -->
-  <div ng-init="init('ID432223', 'PSP')"></div>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top"> -->
-    <a class="navbar-brand" href="#">Faultless Hoses</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-          <a class="nav-link" href="#!dashboard">Dashboard<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="#!profile">Company Profile<span class="sr-only">(current)</span></a>
-        </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div class="dropdown-menu" aria-labelledby="dropdown01">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li> -->
-      </ul>
-
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-      </form>
-    </div>
-  </nav>
+  <div ng-init="init()"></div>
 
     <header id="header">
       <div class="container my-container mt-5">
         <div class="row">
           <div class="col-9 my-col">
-            <h1>{{hoseType}} Hose products for Customer {{id}}</h1>
+            <h1>{{hoseType}} hose products for customer {{id}}</h1>
           </div>
             <div class="col-3 my-col">
-            <button type="button" class="btn btn-light">toggle</button>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Generate Certificate</button>
+            <!-- <form name="certificateForm" action="views/certificate.php" target="_blank" method="POST" enctype="multipart/form-data"> -->
+            <button type="button" ng-click="generate()">Generate Certificate</button>
+            <!-- </form> -->
           </div>
         </div>
 
         <div class="row details-table-container-vh">
           <div class="col-3 my-col details-bar">
-            <a href="#"><img src="https://via.placeholder.com/250"></a>
+            <img  ng-src="{{img}}" src="https://via.placeholder.com/250">
             <h3 class ="details">Details:</h3>
             <ul>
               <!-- We will insert the specific details here later -->
-              <li>{{productID}}</li>
-              <li>{{username}}</li>
-              <li>{{customerPO}}</li>
-              <li>{{orderNum}}</li>
-              <li>{{part}}</li>
-              <li>{{fittings}}</li>
-              <li>{{testDate}}</li>
-              <li>{{testedBy}}</li>
-              <li>{{pressure}}</li>
-              <li>{{diameter}}</li>
-              <li>{{length}}</li>
-              <li>{{temp}}</li>
-              <li>{{crn}}</li>
-              <li>{{inService}}</li>
+              <li>Product ID: {{productID}}</li>
+              <li>Username: {{username}}</li>
+              <li>Customer PO: {{customerPO}}</li>
+              <li>Order num: {{orderNum}}</li>
+              <li>Part: {{part}}</li>
+              <li>Fittings: {{fittings}}</li>
+              <li>Diameter: {{diameter}}</li>
+              <li>Length: {{length}}</li>
+              <li>Pressure: {{pressure}}</li>
+              <li>Temperature: {{temp}}</li>
+              <li>CRN? {{crn}}</li>
+              <li>Hose status: {{inService}}</li>
+              <li>Last test Date: {{testDate}}</li>
+              <li>Tester: {{testedBy}}</li>
             </ul>
+
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Edit info</button>
+            
            <!-- <h3 class ="details">Testing:</h3> 
             <ul>
               <li class="tested by">Phil Robertson</li>
@@ -94,11 +62,11 @@
           <div class="col-6 my-col">
             <div class="row my-row">
               <div class="col-9 my-col">
-                <h3>Purchase history</h3>
+                <!-- <h3>Purchase history</h3> -->
               </div>
 
               <div class="col-3 my-col">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <!-- <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"> -->
               </div>
             </div>
 
@@ -106,30 +74,36 @@
               <thead>
                 <tr>
                   <th scope="col">Product ID</th>
-                  <th scope="col">Order Number</th>
                   <th scope="col">Customer PO</th>
-                  <th scope="col">Part</th>
+                  <th scope="col">Order Number</th>
+                  <th scope="col">CRN?</th>
                   <th scope="col">Tested By</th>
-                  <!-- <th scope="col">Date of test</th> -->
+                  <th scope="col">Test date</th>
+                  <th scope="col">Hose status</th>
                   <th scope="col">Checked</th>
                 </tr>
               </thead>
+              <form id="formData">
               <tbody>
                <tr ng-repeat='a in names'>
 
                 <th scope="row" id="{{$index}}" data-ng-click="details($index)">{{a.ProductID}}</th>
 
                  
-                  <td>{{a.OrderNum}}</td>
+                 
                   <td>{{a.CustomerPO}}</td>
-                  <td>{{a.Part}}</td>
+                  <td>{{a.OrderNum}}</td>
+                  <td>{{a.CRN}}</td>
                   <td>{{a.TestedBy}}</td>
-                  <!-- <td>{{a.testDate}}</td> -->
-                  <td><input type="checkbox"></td>
+                <!--  <td>{{a.testDate}}</td> -->
+                 <!-- <td>{{a.InService}}</td> -->
+
+                  <td><input type="checkbox" name="checkboxes"></td>
                   
                 </tr>
                 
               </tbody>
+              </form>
             </table>
           </div>
 
@@ -173,40 +147,56 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
+            <form>
             <div class="modal-body">
-              <table class="table">
-                <thead>
-                <tr>
-                  <th scope="col">Product ID</th>
-                  <th scope="col">Order Number</th>
-                  <th scope="col">Customer PO</th>
-                  <th scope="col">Part</th>
-                  <th scope="col">Tested By</th>
-                  <!-- <th scope="col">Date of test</th> -->
-                  <th scope="col">Checked</th>
-                </tr>
-                
-                </thead>
-                <tbody>
-                <tr ng-repeat='a in names'>
 
-                  <th scope="row" id="{{$index}}" data-ng-click="details($index)">{{a.ProductID}}</th>
+                <div class="row my-row">
+                    <div class="col-2 my-col">
+                      <b>Customer PO</b>
+                    </div>
+                    <div class="col-10 my-col">
+                      <input class="form-control mr-sm-2" type="text" maxlength="50" placeholder="Ex. 12345" aria-label="crnnumber" id='PO' value="{{customerPO}}">
+                    </div>
+                </div>
+                <div class="row my-row">
+                    <div class="col-2 my-col">
+                      <b>New test date</b>
+                    </div>
+                    <div class="col-10 my-col">
+                      <input class="form-control mr-sm-2" type="date" placeholder="Username" aria-label="crnnumber" id='testDate' value="{{testDate}}">
+                    </div>
+                </div>
+                <div class="row my-row">
+                    <div class="col-2 my-col">
+                      <b>Tested by</b>
+                    </div>
+                    <div class="col-10 my-col">
+                      <select class="form-control mr-sm-2" placeholder="Username" aria-label="crnnumber" id='Tester' value="{{testedBy}}">
+                      <option value="na">Select tester</option>
+                      <option value="Brian Williams">Brian Williams</option>
+                      <option value="Bruce Williams">Bruce Williams</option>
+                      <option value="Derek Williams">Derek Williams</option>
+                      <!-- NEed to get other values -->
+                      </select>
+                    </div>
+                </div>
+                <div class="row my-row">
+                    <div class="col-2 my-col">
+                      <b>In Service?</b>
+                    </div>
+                    <div class="col-10 my-col">
+                    <input class="form-control mr-sm-2" type="radio" aria-label="temprange" name="status" id='statusYes' value="In Service" required>In Service<br>
+                    <input class="form-control mr-sm-2" type="radio" aria-label="temprange" name="status" id='statusNo' value="Out of Service" required>Out of Service<br>
+                    </div>
+                </div>
 
-                  
-                    <td>{{a.OrderNum}}</td>
-                    <td>{{a.CustomerPO}}</td>
-                    <td>{{a.Part}}</td>
-                    <td>{{a.TestedBy}}</td>
-                    <!-- <td>{{a.testDate}}</td> -->
-                    <td><input type="checkbox"></td>
-                  
-                </tr>
-                </tbody>
-              </table>
+
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Generate</button>
+              <button type="button" class="btn btn-primary" ng-click="update()">Update</button>
+              <input type="reset" value="Current Values">
             </div>
+            </form>
           </div>
         </div>
       </div>

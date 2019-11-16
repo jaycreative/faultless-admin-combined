@@ -3,6 +3,7 @@ app.factory('transferService', function() {
   var productID ="";
   var hoseType ="";
   var loggedin = false;
+  var products = [];
 
   var setUsername = function(name) {
       username = name;
@@ -30,11 +31,24 @@ var getHoseType = function(){
 
 var login = function() {
   loggedin = true;
-  alert("logged in!");
+  //alert("logged in!");
+};
+
+var signOut = function() {
+  loggedin = false;
+ // alert("logged in!");
 };
 
 var isloggedin = function(){
   return loggedin;
+};
+
+var setProducts = function(list) {
+  products = list;
+};
+
+var getProducts = function(){
+  return products;
 };
 
 
@@ -46,7 +60,10 @@ var isloggedin = function(){
     setHoseType: setHoseType,
     getHoseType: getHoseType,
     login:login,
-    isloggedin:isloggedin
+    signOut:signOut,
+    isloggedin:isloggedin,
+    setProducts:setProducts,
+    getProducts:getProducts
   };
 
 });
